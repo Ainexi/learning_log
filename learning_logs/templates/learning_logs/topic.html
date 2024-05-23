@@ -1,0 +1,29 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+<h2>{{ topic.text }}</h2>
+{% endblock page_header %}
+
+{% block content %}
+<h4>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">添加新条目</a>
+</h4>
+
+{% for entry in entries %}
+<div class="card mb-3">
+    <!-- 标题 -->
+    <h4 class="card-header">
+        {{ entry.date_added }}
+        <small>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}">编辑条目</a>
+        </small>
+    </h4>
+
+    <!-- 正文 -->
+    <div class="card-body">{{ entry.text | linebreaks }}</div>
+</div>
+{% empty %}
+<p>该主题目前无任何条目</p>
+{% endfor %}
+</ul>
+{% endblock content %}
